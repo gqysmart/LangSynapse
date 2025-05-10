@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LangSynapse
 
-## Getting Started
+LangSynapse is an innovative AI-powered platform designed to help learners master languages faster and smarter. By using GPT-based AI, the platform provides real-time grammar corrections, vocabulary suggestions, and personalized feedback to enhance writing skills. With interactive features such as journal writing, topic-based exercises, and model essays, LangSynapse tailors the learning experience to each user's proficiency level and goals, fostering deeper understanding and fluency in multiple languages.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Real-time Grammar Correction**: Get instant feedback on your language usage, including spelling, grammar, and syntax corrections.
+- **AI-driven Vocabulary Suggestions**: Receive personalized word recommendations based on your language level and learning progress.
+- **Journal Writing Support**: Write in your target language, with AI-powered suggestions and feedback to improve your writing.
+- **Model Essays**: Access essays for various proficiency levels to understand how to structure language in real-life contexts.
+- **Comparative Analysis**: Compare your writings with model essays to understand key differences and areas for improvement.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Frontend**: React.js, Next.js, TailwindCSS
+- **Backend**: Node.js, Express.js
+- **AI**: GPT-3 / GPT-4 API, Natural Language Processing (NLP) techniques
+- **Database**: MongoDB (for storing user progress and language data)
+- **Authentication**: NextAuth.js, JWT
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Contributing
 
-## Learn More
+We welcome contributions to LangSynapse! If you'd like to contribute, please fork the repository and create a pull request with your changes.
 
-To learn more about Next.js, take a look at the following resources:
+### Steps to contribute:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Fork the repository
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Create a new branch (git checkout -b feature/your-feature)
 
-## Deploy on Vercel
+- Commit your changes (git commit -am 'Add new feature')
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Push to your branch (git push origin feature/your-feature)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Create a new Pull Request
+
+## License
+
+LangSynapse is open-source and available under the MIT License.
+
+## Acknowledgements
+
+Special thanks to OpenAI for their powerful GPT models that drive the AI features in this project.
+
+Thanks to the contributors who help make this project better.
+
+## Contact
+
+If you have any questions or feedback, feel free to open an issue in the GitHub repository or contact me via email: grantnj.ge@gmail.com

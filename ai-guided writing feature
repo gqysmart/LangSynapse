@@ -82,3 +82,40 @@ After each response, the AI provides:
 - Export to PDF
 - Track writing skill improvement over time
 - Tutor mode: share with teacher for comments
+# Langsynapse Guided Writing vs. Generic ChatGPT
+
+## Summary
+Langsynapse offers a structured, learner-focused writing experience specifically tailored for French learners, whereas ChatGPT is a general-purpose AI that requires more initiative and prompting from the user.
+
+---
+
+## Feature Comparison
+
+| Feature Area        | Langsynapse Guided Writing                       | Generic ChatGPT                         |
+|---------------------|--------------------------------------------------|-----------------------------------------|
+| **Target Audience** | French learners (CEFR B1–C1)                     | General users across all domains        |
+| **Writing Flow**    | Step-by-step guided process                      | Open-ended conversation                 |
+| **Structure Support** | Clear guidance for intro, body, conclusion     | No default structure unless requested   |
+| **Level Adaptation** | Prompts adjust by language level (e.g. B1, B2)  | Level-neutral; must be manually set     |
+| **Feedback Mechanism** | AI gives grammar, vocabulary, and logic tips per step | Feedback only when explicitly asked     |
+| **Educational Focus** | Strong focus on learning outcomes               | General assistance, not education-specific |
+| **Progress Tracking** | Can save drafts, track improvement              | No built-in tracking or progress memory |
+| **Commercial Value** | Enables premium models (subscriptions, courses) | Monetization depends on custom usage    |
+| **User Experience** | Guided, focused, learning-friendly               | Flexible, but often unstructured        |
+
+---
+
+## Key Takeaway
+
+> **Langsynapse acts as an AI writing coach. ChatGPT is a universal assistant.**
+
+Langsynapse is tailored for users who **need structure, feedback, and learning progression**, especially in French writing. ChatGPT requires the user to **drive the process** by asking the right questions and giving context.
+
+---
+
+## Why Langsynapse Stands Out
+
+- No need to know prompt engineering
+- Built-in learning progression
+- Designed for long-term writing skill improvement
+- More predictable and focused results for non-native learners

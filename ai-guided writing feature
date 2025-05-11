@@ -1,0 +1,84 @@
+# Langsynapse – AI-Guided Writing Feature
+
+## Feature Name
+**AI Writing Guide** / **Guided Writing Mode**
+
+---
+
+## Objective
+Help users write better in French through step-by-step, AI-powered guidance. Ideal for learners who struggle with writing structure or idea development.
+
+---
+
+## Key Components
+
+### 1. Topic Selection
+- **Options:**
+  - Free writing (custom topic)
+  - Suggested prompts (CEFR levels: B1, B2, C1)
+  - Text types: argumentative, descriptive, narrative, letter, etc.
+
+---
+
+### 2. Step-by-step Guidance
+
+| Step | AI Prompt |
+|------|-----------|
+| 1 | What do you want to write about? Give a topic sentence. |
+| 2 | Why is it important? Provide two supporting reasons. |
+| 3 | Can you give an example or detail to support your idea? |
+| 4 | How would you like to end your text? Summarize your thoughts or opinion. |
+
+> Prompts and guidance can adapt based on the user's French level.
+
+---
+
+### 3. Real-Time Feedback
+After each response, the AI provides:
+- Grammar suggestions
+- Vocabulary improvements
+- Coherence and structure tips
+
+---
+
+### 4. Visual Writing Structure
+- **Options:**
+  - Card-based outline (Intro, Body, Conclusion)
+  - Section-by-section editor
+  - Mindmap-style layout (optional)
+
+---
+
+### 5. Final Draft Assembly
+- **Two Options:**
+  - Auto-generate a complete draft from user input
+  - Manual writing using the structured outline
+
+---
+
+## Technical Implementation
+
+### Frontend (Next.js + React)
+- Multi-step form UI (e.g. with React Hook Form + Zustand)
+- Rich text/Markdown editor (TipTap, Editor.js, or Toast UI)
+- Progress indicator
+
+### Backend (Node.js + AI)
+- GPT-4 powered prompt generation and evaluation
+- Input validation and error handling
+- Optional: User writing history saved to database
+
+---
+
+## Value Added
+- Boosts learner confidence and engagement
+- Builds strong writing habits (structure + coherence)
+- Encourages subscription or premium feature adoption
+
+---
+
+## Optional Enhancements
+- Save drafts/progress
+- Export to PDF
+- Track writing skill improvement over time
+- Tutor mode: share with teacher for comments

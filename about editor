@@ -1,0 +1,57 @@
+# ✨ Grammar Suggestion Editor – Technical Framework
+
+## 🎯 Goal
+
+Create an interactive text editor for language learners or grammar correction purposes that:
+
+- **Preserves the original user input**
+- **Highlights incorrect phrases or words**
+- **Displays corrected suggestions below the original line**
+- **Avoids replacing or editing user input directly**
+- **Supports multilingual input (e.g., English, Japanese)**
+
+---
+
+## 🧱 Technology Stack
+
+| Layer | Choice | Purpose |
+|-------|--------|---------|
+| **Editor Core** | [Lexical](https://lexical.dev/) | Lightweight, extensible text editor framework by Meta |
+| **Frontend** | React + TailwindCSS | UI rendering and styling |
+| **Node-based Text Rendering** | Lexical Custom Nodes | For error annotation and suggestion blocks |
+| **Grammar Correction Backend** | GPT API / Grammar API | To detect grammar issues and provide suggestions |
+| **State Management** | React Hooks / Lexical Commands | For managing selection, rendering suggestions, and communication between nodes and plugins |
+
+---
+
+## 🔩 Key Components
+
+### 1. `GrammarErrorNode`
+- Custom Lexical Node to highlight incorrect text
+- Rendered with red underline (`<span class="text-red-500 underline dotted">`)
+- Stores:
+  - `wrongText: string`
+  - `suggestedText: string`
+
+### 2. `SuggestionBlockNode`
+- Custom Lexical Node inserted below the paragraph
+- Displays corrected sentence in italic green text
+- Example rendering:  
+  `<div class="text-green-600 italic mt-1">Corrected sentence...</div>`
+
+### 3. `GrammarCheckPlugin`
+- Lexical plugin that listens to content changes (`onChange`)
+- Calls grammar correction API (e.g., OpenAI GPT or LanguageTool)
+- Analyzes grammar issues and inserts `GrammarErrorNode` and `SuggestionBlockNode` accordingly
+
+---
+
+## 🧠 AI Integration Flow
+
+```mermaid
+graph LR
+A[User Input] --> B[onChange Hook]
+B --> C[Debounce + Call GPT API]
+C --> D[Parse Suggestions]
+D --> E[Insert GrammarErrorNode(s)]
+D --> F[Insert SuggestionBlockNode(s)]

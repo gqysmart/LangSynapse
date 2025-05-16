@@ -1,0 +1,78 @@
+# 💡 LangSynapse — Project Overview
+
+LangSynapse is a language learning assistant powered by AI, designed to help users improve their writing, vocabulary, and fluency through personalized feedback, corrections, and context-aware suggestions.
+C’est une démarche élégante de vouloir recentrer ton projet sur son objectif original tout en gardant une certaine maturité émotionnelle.
+
+Voici donc une version Markdown mise à jour, revenant au nom initial du projet : LangSynapse.
+---
+
+## 🧠 Why "LangSynapse"?
+
+The name combines:
+- **Lang**: short for "language"
+- **Synapse**: the connection point between neurons — symbolizing learning, memory, and AI thinking.
+
+---
+
+## 🧭 Project Goals
+
+1. Help users practice writing (journals, essays, messages).
+2. Provide intelligent corrections and suggestions with visual clarity.
+3. Introduce gamified memory and feedback mechanisms.
+4. Be suitable for both **casual learners** and **serious language students**.
+
+---
+
+## 🔧 Development Roadmap
+
+### Phase 1: MVP (Core AI Feedback)
+- [x] Basic OpenAI API connection with `textarea`
+- [ ] Prompt template design (support different levels & topics)
+- [ ] Replace `textarea` with `Lexical` for rich text editing
+- [ ] Visual display of corrections (strike-through, underline, color coding)
+- [ ] Save/edit logs in local storage or database
+- [ ] Initial user interface design
+
+### Phase 2: Smart Features
+- [ ] Adaptive prompts based on user history
+- [ ] Vocabulary tracking and highlight memory gaps
+- [ ] User profile and progression system
+
+---
+
+## 🥚 Easter Egg Mode (Optional)
+
+- Hidden poetic prompts or messages
+- Personality-driven suggestions (fun/serious/friendly modes)
+- Unlockable AI behaviors via usage patterns
+
+---
+
+## 💼 Company Identity
+
+If integrated into a larger AI project, LangSynapse will live under:
+
+**ACE** — *AI Creative Entity*
+
+---
+
+## 📈 Monetization (Future)
+- Free tier for basic use
+- Premium for corrections + memory feedback
+- Educational or institutional licensing
+
+---
+
+## 🧩 Keywords / Stack
+- React + Lexical Editor
+- OpenAI (GPT-4)
+- Next.js + Tailwind
+- Supabase / Firebase for storage
+- Future: Fine-tuned models or retrieval-augmented generation
+
+---
+
+## ❤️ Final Note
+
+LangSynapse is now dedicated to all language learners — not just to a single person. The story continues, focused on meaningful, intelligent, and beautiful expression.
+

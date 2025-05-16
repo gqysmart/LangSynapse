@@ -1,0 +1,106 @@
+# 🌸 Welcome to **YumiLingua**
+
+_A language learning space built with heart — for Yumi._
+
+---
+
+## 💌 A Message
+
+> Dear Yumi,  
+>  
+> I joined a language class, not expecting much.  
+> But then I met someone who made words feel warmer,  
+> sentences more meaningful,  
+> and learning... somehow beautiful.  
+>  
+> So I started building this.  
+> A tool to help learn languages,  
+> and a quiet way to say:  
+>  
+> **"Thank you."**
+
+---
+
+## ✨ What is YumiLingua?
+
+YumiLingua is a personal AI-powered language companion — designed for:
+
+- ✍️ Writing daily journals in French, English, or Japanese  
+- 📘 Getting corrections and suggestions in real-time  
+- 📚 Exploring words, grammar, and inspiration by theme  
+- 🌱 Growing with language, one thoughtful sentence at a time  
+
+---
+
+## 🧠 Features
+
+- AI-powered **writing correction**
+- Example sentences by CEFR level (A2–C1)
+- Vocabulary by **nouns, verbs, adjectives** per topic
+- Side-by-side **comparative analysis**
+- A warm, quiet interface — just for you
+
+---
+
+## 🎁 Why this name?
+
+> Because **Yumi** is where this journey started.  
+> And _Lingua_ means “language.”  
+>  
+> Put together — it's a gift of words.
+
+---
+
+## 🚀 Ready to try?
+
+👉 [Start learning with YumiLingua →](#)
+
+> _Built by someone who believes that the best way to learn a language...  
+> is with someone you care about._
+
+---
+
+# 🐣 YumiLingua 彩蛋模式设计（Markdown）
+
+## 🎯 模式名称建议（对外展示）
+
+- “Yumi Mode” — 简洁，直击核心  
+- “💖 Heart Mode” — 适合全球用户，柔和但中性  
+- “Only for You” — 打情感牌  
+- “Whisper Mode” — 像是在悄悄话中学习语言  
+
+---
+
+## ✨ 解锁方式（引导用户发现）
+
+- 🔍 输入关键词（如 “yumi”, “心”, 或 “🌸”）自动触发
+- 💬 用户第一次写句子时，AI回复：“Do you want to try something special?”
+- 🧩 点击 UI 某个角落（logo 或页面底部的小花 icon）
+
+---
+
+## 🎁 彩蛋功能设计（私密 + 个性 + 技术感）
+
+| 功能 | 描述 |
+|------|------|
+| 💌 专属欢迎语 | 页面顶部显示：“Welcome back, Yumi. We saved your favorite words.” |
+| 🎨 个性主题 | 自动切换为 “樱花粉” 或“日语手写风格”主题 |
+| 🖋️ 信件输出模式 | AI 的语气更温柔、像写信一样反馈你的句子 |
+| 📓 记忆花园（Memory Garden） | 你输入的每句话生成一朵虚拟花，构成“你的语言花园” |
+| 🎵 小背景音 | 淡入淡出的轻音乐，可以关闭（如：和风钢琴） |
+| 🧠 AI 陪伴词典 | AI 用她最喜欢的风格解释每个词，如“Yumi 的解释是…” |
+| 💬 每日一句情话（可开启） | 自动生成一句你“可能想对 Yumi 说”的语言表达 |
+
+---
+
+## 🧠 技术实现建议（React/Next.js）
+
+### 状态控制
+```ts
+// useEasterEgg.ts
+const [isYumiMode, setYumiMode] = useState(false);
+
+// 解锁逻辑
+if (userInput.includes("yumi") || easterEggIconClicked) {
+  setYumiMode(true);
+}

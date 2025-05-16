@@ -1,0 +1,54 @@
+# Development Task Plan — YumiLingua Language Correction Tool
+
+---
+
+## 1. Test OpenAI API integration using a basic textarea
+- Build a simple frontend page
+- Use a `<textarea>` as the input field
+- Implement calls to the OpenAI API (e.g., GPT-4 / GPT-3.5)
+- Display the corrected output returned by the model
+
+---
+
+## 2. Design basic prompt templates
+- Create prompts tailored for language correction
+- Include role instructions, task descriptions, and output format requirements
+- Test prompts both in ChatGPT UI and via API
+- Ensure the model returns corrections and concise explanations
+
+---
+
+## 3. Replace textarea with Lexical UI editor
+- Learn basics of Lexical editor usage
+- Replace the plain textarea input with Lexical rich text editor
+- Implement syntax highlighting and rich text editing features
+
+---
+
+## 4. Finalize visual design for correction display
+- Decide on how to highlight corrections (e.g., color highlights, strikethroughs, inline comments)
+- Design interactive elements (e.g., hover tooltips for explanations)
+- Consider before/after side-by-side comparison display
+- Ensure mobile-friendly interactions
+
+---
+
+## 5. Design storage solution for correction data
+- Plan local storage options (localStorage, IndexedDB)
+- Design backend storage API and database schema
+- Define data structure including user input, corrections, timestamps, etc.
+- Support history retrieval and reuse of corrections
+
+---
+
+## 6. Finalize overall user interface
+- Design UI/UX layout and navigation
+- Determine language switching, user authentication features
+- Polish visual styles incorporating correction display design
+- Ensure responsive design across devices
+
+---
+
+# Summary
+Implement step-by-step: start with core functionality, then enhance interaction and storage, and finally polish the UI.  
+Let me know if you want me to provide example code or detailed design documents!

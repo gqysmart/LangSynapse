@@ -1,0 +1,142 @@
+# 🧠 ACE (AI Creative Entity)
+
+A personalized AI-powered language learning assistant, inspired by human connection and designed as a gift. Initially built around French writing correction, user profiles, and prompt engineering.
+
+---
+
+## 💡 Project Summary
+
+**ACE** is the name of the mother AI company:  
+> **A**rtificial **C**reative **E**ntity
+
+**Product Name**: YumiLingua  
+A language learning tool inspired by someone special — designed to feel human, personal, and emotionally meaningful.
+
+---
+
+## 🧱 Architecture Overview
+
+┌───────────────────────────────┐
+│ Frontend Application Layer │
+│ ┌─────────────────────────────┐ │
+│ │ Textarea Input (or Lexical) │
+│ │ AI Correction + Visual Feedback │
+│ │ Easter Egg Trigger (optional) │
+│ └─────────────────────────────┘ │
+│ ⬇ Input + Context + Persona │
+└────────────┬────────────────────────┘
+│
+▼
+┌───────────────────────────────┐
+│ 🧠 ACE Intelligence Core │
+│ ┌─────────────────────────────┐ │
+│ │ User Persona Engine │
+│ │ Contextual Prompt Generator │
+│ │ Mistake Tracker / History │
+│ └─────────────────────────────┘ │
+│ ⬇ Prompt → ChatGPT or Model │
+└────────────┬────────────────────────┘
+│
+▼
+┌───────────────────────────────┐
+│ GPT-4 / OpenAI API (Correction Layer) │
+│ - Text Correction & Feedback │
+│ - Explanation and Tone Control │
+└───────────────────────────────┘
+
+---
+
+## 👤 User Persona JSON (MVP)
+
+```json
+{
+  "userId": "user_001",
+  "languageLevel": "B1",
+  "mainWeaknesses": ["articles", "gender", "subjunctive"],
+  "preferredCorrectionStyle": "friendly-explanation",
+  "writingGoals": ["daily journal", "exam prep"],
+  "topicPreferences": ["cinema", "travel", "emotions"],
+  "feedbackHistory": {
+    "totalMistakes": 83,
+    "recentImprovement": true
+  },
+  "easterEggsUnlocked": ["yumi-mode", "vocab-journey"],
+  "emotionFlag": "motivated"
+}
+
+✨ Prompt Template Example
+Prompt passed to OpenAI API dynamically built from persona.
+
+System prompt:
+You are a French teacher giving friendly, example-rich corrections.
+
+User profile:
+- Level: B1
+- Weaknesses: articles, gender, subjunctive
+- Correction style: brief, visual explanations
+- Topics: travel, emotions
+
+Task:
+Correct the user’s text below. Highlight grammar issues (especially article/gender/subjunctive), and provide short and clear explanations. Be positive and slightly humorous if appropriate.
+
+Text:
+"Je suis allé à la plage avec ma chien. Elle était très belle journée."
+🥚 Easter Egg Mode (Marketing Feature)
+YumiLingua includes hidden or unlockable content based on usage, emotions, or performance. Examples:
+
+Trigger	Easter Egg
+Write 3 days in a row	“🌸 Yumi Mode” unlocked
+Master subjunctive	🎓 “Grammar Master” sticker
+Make the same mistake 10x	🐱 “Oops Kitty” animated tip
+Try dark mode	🌙 “Night Owl” mode surprise
+Correct someone else's text	❤️ “Helper Star” badge
+
+🧠 AI Assets & Moat Ideas
+Area	Strategy
+Prompt Templates	Personality-aware prompt variations
+Feedback Tuning	LoRA/Prompt-based tone customization
+Data Loop	Save anonymous corrections for finetuning
+Personalization	Context + persona-aware micro-feedback
+Gamification	XP, unlockables, emotional touchpoints
+
+🛠️ Development Tasks (MVP)
+✅ Use <textarea> to connect to OpenAI API
+
+✅ Basic prompt design with a test persona
+
+✅ Replace <textarea> with Lexical rich editor
+
+✅ Design visual style for corrections (inline feedback, highlights, tips)
+
+✅ Store user persona and history (localStorage / Firebase / Supabase)
+
+✅ Build minimal UI (login, writing page, feedback page)
+
+📁 .env and Security Notes
+.env should not be committed to Git for security.
+
+Use .env.example to share config format with team:
+
+🤖 Prompt Engineering Basics
+Prompt Structure (General):
+
+
+[System Instruction]
+[Persona Info]
+[Correction Task Instruction]
+[User Input]
+Why Context Matters:
+
+ChatGPT uses:
+
+The current message (your prompt)
+
+The chat history (if available)
+
+Persona or role instructions (system messages)
+
+🎁 Closing Notes
+YumiLingua began as a gift — inspired by a shared love of language and a classmate named Yumi.
+ACE (AI Creative Entity) is the engine to scale that feeling to the world.
+
+

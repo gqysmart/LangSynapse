@@ -2,7 +2,6 @@
 // Layout.tsx
 import Header from "./Header"
 import Sidebar from "./Sidebar"
-import Main from "./Main"
 import Footer from "./Footer"
 
 export default function Layout({children}: {children: React.ReactNode}) {

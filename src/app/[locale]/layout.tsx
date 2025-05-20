@@ -5,9 +5,8 @@ import {ReactNode} from "react"
 import {clsx} from "clsx"
 import {Inter} from "next/font/google"
 import {routing} from "@/i18n/routing"
-import Navigation from "@/components/Navigation"
-import LangNavigation from "@/components/LangNavigation"
 import "./styles.css"
+import CommonLayout from "@/components/layout/Layout"
 
 type Props = {
   children: ReactNode
@@ -27,6 +26,7 @@ export async function generateMetadata(props: Omit<Props, "children">) {
 
   return {
     title: t("title"),
+    description: t("title"),
   }
 }
 
@@ -42,11 +42,9 @@ export default async function LocaleLayout({children, params}: Props) {
 
   return (
     <html className="h-full" lang={locale}>
-      <body className={clsx(inter.className, "flex h-full flex-col")}>
+      <body className={clsx(inter.className, "overflow-hidden", "h-full")}>
         <NextIntlClientProvider>
-          <Navigation />
-          <LangNavigation></LangNavigation>
-          {children}
+          <CommonLayout>{children}</CommonLayout>
         </NextIntlClientProvider>
       </body>
     </html>

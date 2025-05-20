@@ -11,7 +11,7 @@ declare const messages: {
     "title": "next-intl example"
   },
   "LocaleLayout": {
-    "title": "next-intl example"
+    "title": "🧠 YumiLanguia"
   },
   "LocaleSwitcher": {
     "label": "Change language",

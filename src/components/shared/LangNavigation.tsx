@@ -1,6 +1,6 @@
 import {useTranslations} from "next-intl"
 import LocaleSwitcher from "./LangSwitcher"
-import NavigationLink from "./NavigationLink"
+import NavigationLink from "../NavigationLink"
 
 export default function Navigation() {
   const t = useTranslations("Navigation")

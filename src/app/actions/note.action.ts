@@ -25,16 +25,16 @@ type JournalState = {
   result: string
 }
 
-export async function handleJournalAction(
+export async function handleNoteAction(
   prevState: JournalState,
   formData: FormData
 ): Promise<JournalState> {
-  const title = formData.get("title")?.toString() || ""
-  const content = formData.get("content")?.toString() || ""
+  const noteContent = formData.get("noteContent")?.toString() || ""
+  const toolSelected = formData.get("toolSelected")?.toString() || ""
 
   // Do something, like validation or API call...
 
   return {
-    result: `Received: ${title} + ${content}`,
+    result: ` ${toolSelected} + ${noteContent}`,
   }
 }

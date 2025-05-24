@@ -1,39 +1,20 @@
-"use client"
+import LangNote from "@/components/pages/Note/LangNoter"
 
-import {useRef, useState} from "react"
-import JournalForm, {
-  JournalFormHandle,
-} from "@/components/pages/Journal/JournalForm"
-
-import AIToolPanel from "@/components/pages/Journal/AItoolPanel"
-
-export default function JournalPage() {
-  const formRef = useRef<JournalFormHandle>(null)
-  const [currentAction, setCurrentAction] = useState("")
-
-  const handleSubmit = (type: string) => {
-    setCurrentAction(type)
-    formRef.current?.submitWithAction(type)
+export async function generateMetadata() {
+  return {
+    title: `📘 Note`,
   }
+}
 
-  const actionLabelMap: Record<string, string> = {
-    voice: "Voice Input In Progress",
-    correct: "Grammar Correction In Progress",
-    guide: "Guided Writing In Progress",
-    reference: "Advanced Reference Lookup",
-  }
+export type NotePageProps = {title: string}
 
+export default function NotePage() {
   return (
     <section className="relative max-w-2xl mx-auto pb-20">
-      <h2 className="sr-only">
-        {currentAction
-          ? actionLabelMap[currentAction]
-          : "Journal Writing Section"}
-      </h2>
+      <h2 className="sr-only">Note</h2>
       <div className="relative w-full h-screen">
-        <JournalForm ref={formRef} />
+        <LangNote></LangNote>
       </div>
-      <AIToolPanel active={currentAction} onSelect={handleSubmit} />
     </section>
   )
 }

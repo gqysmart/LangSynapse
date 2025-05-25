@@ -1,10 +1,11 @@
 "use client"
 
-import {Suspense, useActionState, useEffect} from "react"
+import {useActionState, useEffect} from "react"
 import {useRef} from "react"
 import {handleNoteAction} from "@/app/actions/note.action"
 import LexEditor from "@/components/lexical/LexEditor"
 import ToolPanel from "./ToolPanel"
+import clsx from "clsx"
 
 const initialState = {result: ""}
 
@@ -24,7 +25,7 @@ const tools = [
   {key: "b2", label: "📘"},
 ]
 
-function LangNote() {
+function LangNote({className}: {className: string}) {
   const [textProcessed, formAction] = useActionState(
     handleNoteAction,
     initialState
@@ -53,9 +54,17 @@ function LangNote() {
     <form
       ref={formRef}
       action={formAction}
-      className="space-y-4 h-screen w-full"
+      className={clsx(
+        className,
+        "flex flex-col space-y-4",
+        "font-caveat",
+        "text-3xl"
+      )}
     >
-      <LexEditor ref={lexRef}></LexEditor>
+      <LexEditor
+        className="flex-grow basis-0 overflow-auto"
+        ref={lexRef}
+      ></LexEditor>
       <input type="hidden" name="noteContent" ref={hiddenInputRef} />
 
       <ToolPanel onAction={handleFormSubmit} toolParamsList={tools}></ToolPanel>

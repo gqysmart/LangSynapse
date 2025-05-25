@@ -1,8 +1,17 @@
 @import "tailwindcss";
-
+@config "../../tailwind.config.ts";
 @plugin 'tailwindcss-animate';
 
 @custom-variant dark (&:is(.dark *));
+
+/*
+  ---break---
+*/
+@theme {
+  --font-family-caveat: var(--font-caveat, "Caveat", sans-serif);
+  --font-family-inter: var(--font-inter, "Inter", sans-serif);
+  --font-family-orbitron: var(--font-orbitron, "Orbitron", sans-serif);
+}
 
 @theme {
   --color-border: hsl(var(--border));
@@ -296,5 +305,75 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* useLinenumbers */
+/* 基础样式：初始化行号 */
+@layer utilities {
+  /* 通用初始化 */
+  [class*="editor-with-lines-"] {
+    counter-reset: line;
+  }
+
+  [class*="editor-with-lines-"] p {
+    counter-increment: line;
+    position: relative;
+    padding-left: 2.5rem;
+  }
+
+  [class*="editor-with-lines-"] p::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 2rem;
+    text-align: right;
+    color: #9ca3af;
+    user-select: none;
+    font-variant-numeric: tabular-nums;
+
+    opacity: 0.6;
+  }
+
+  /* 每 1 行显示一次 */
+  .editor-with-lines-1 p:nth-of-type(1n)::before {
+    content: counter(line);
+  }
+
+  /* 每 2 行显示一次 */
+  .editor-with-lines-2 p:nth-of-type(2n)::before {
+    content: counter(line);
+  }
+
+  .editor-with-lines-3 p:nth-of-type(3n)::before {
+    content: counter(line);
+  }
+
+  .editor-with-lines-4 p:nth-of-type(4n)::before {
+    content: counter(line);
+  }
+
+  .editor-with-lines-5 p:nth-of-type(5n)::before {
+    content: counter(line);
+  }
+
+  .editor-with-lines-6 p:nth-of-type(6n)::before {
+    content: counter(line);
+  }
+
+  .editor-with-lines-7 p:nth-of-type(7n)::before {
+    content: counter(line);
+  }
+
+  .editor-with-lines-8 p:nth-of-type(8n)::before {
+    content: counter(line);
+  }
+
+  .editor-with-lines-9 p:nth-of-type(9n)::before {
+    content: counter(line);
+  }
+
+  .editor-with-lines-10 p:nth-of-type(10n)::before {
+    content: counter(line);
   }
 }

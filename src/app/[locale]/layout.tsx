@@ -4,6 +4,8 @@ import {getTranslations, setRequestLocale} from "next-intl/server"
 import {ReactNode} from "react"
 import {clsx} from "clsx"
 import {Inter} from "next/font/google"
+import {Caveat} from "next/font/google"
+import {Orbitron} from "next/font/google"
 import {routing} from "@/i18n/routing"
 import "./styles.css"
 import CommonLayout from "@/components/layout/Layout"
@@ -13,7 +15,14 @@ type Props = {
   params: Promise<{locale: Locale}>
 }
 
-const inter = Inter({subsets: ["latin"]})
+const inter = Inter({subsets: ["latin"], variable: "--font-inter"})
+const caveat = Caveat({subsets: ["latin"], variable: "--font-caveat"})
+const orbitron = Orbitron({
+  subsets: ["latin"],
+  weight: ["500", "700"],
+  variable: "--font-orbitron",
+  display: "swap",
+})
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({locale}))
@@ -41,8 +50,16 @@ export default async function LocaleLayout({children, params}: Props) {
   setRequestLocale(locale)
 
   return (
-    <html className="h-full" lang={locale}>
-      <body className={clsx(inter.className, "overflow-hidden", "h-full")}>
+    <html
+      lang={locale}
+      className={clsx(
+        "h-fll",
+        inter.variable,
+        caveat.variable,
+        orbitron.variable
+      )}
+    >
+      <body className={clsx("h-full", inter.className)}>
         <NextIntlClientProvider>
           <CommonLayout>{children}</CommonLayout>
         </NextIntlClientProvider>

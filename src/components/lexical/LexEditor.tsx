@@ -10,13 +10,16 @@ import {LexicalErrorBoundary} from "@lexical/react/LexicalErrorBoundary"
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext"
 import {$getRoot, $createParagraphNode, $createTextNode} from "lexical"
 import {EditorState} from "lexical"
-import {useState, forwardRef, useImperativeHandle} from "react"
+import {forwardRef, useImperativeHandle} from "react"
+import clsx from "clsx"
+import {useLineNumbers} from "@/hooks/useLineNumbers"
 
 const editorConfig = {
   namespace: "LangSynapseEditor",
   theme: {},
   onError: (error: Error) => console.error(error),
 }
+
 const EditorController = forwardRef((_, ref) => {
   const [editor] = useLexicalComposerContext()
 
@@ -42,38 +45,43 @@ const EditorController = forwardRef((_, ref) => {
 })
 EditorController.displayName = "EditorController"
 
-const LexicalEditor = forwardRef((_, ref) => {
-  const [output, setOutput] = useState("")
+const LexicalEditor = forwardRef(({className}: {className: string}, ref) => {
+  // const [output, setOutput] = useState("")
 
   const handleChange = (editorState: EditorState) => {
     editorState.read(() => {
-      const root = $getRoot()
-      const text = root.getTextContent()
-      setOutput(text)
+      // const root = $getRoot()
+      // const text = root.getTextContent()
+      // setOutput(text)
     })
   }
+  const lineNumberClass = useLineNumbers(5)
 
   return (
-    <div className="p-4 border rounded-md">
+    <div className={clsx(className, "relative h-full p-4 ")}>
       <LexicalComposer initialConfig={editorConfig}>
-        <RichTextPlugin
-          contentEditable={
-            <ContentEditable className="min-h-[150px] p-2 border rounded-md outline-none" />
-          }
-          placeholder={<div className="text-gray-400">Start writing...</div>}
-          ErrorBoundary={LexicalErrorBoundary}
-        />
+        <div className="relative h-full">
+          <RichTextPlugin
+            contentEditable={
+              <ContentEditable
+                className={clsx(
+                  "h-full min-h-24 p-2 outline-none",
+                  lineNumberClass
+                )}
+              />
+            }
+            placeholder={
+              <div className="absolute top-2 left-2 text-gray-400 pointer-events-none">
+                {"C'est YUMIlanguia, écris des choses ,SVP."}
+              </div>
+            }
+            ErrorBoundary={LexicalErrorBoundary}
+          />
+        </div>
         <HistoryPlugin />
         <OnChangePlugin onChange={handleChange} />
-        <EditorController ref={ref}></EditorController>
+        <EditorController ref={ref} />
       </LexicalComposer>
-
-      <div className="mt-4 text-sm text-muted-foreground">
-        <strong>Preview:</strong>
-        <p className="mt-1 whitespace-pre-wrap border p-2 bg-gray-50 rounded">
-          {output || "(empty)"}
-        </p>
-      </div>
     </div>
   )
 })

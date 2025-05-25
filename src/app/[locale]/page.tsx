@@ -10,10 +10,10 @@ export type NotePageProps = {title: string}
 
 export default function NotePage() {
   return (
-    <section className="relative max-w-2xl mx-auto pb-20">
+    <section className="h-full">
       <h2 className="sr-only">Note</h2>
-      <div className="relative w-full h-screen">
-        <LangNote></LangNote>
+      <div className="h-full">
+        <LangNote className="h-full"></LangNote>
       </div>
     </section>
   )

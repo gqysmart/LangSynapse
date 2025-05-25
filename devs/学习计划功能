@@ -1,0 +1,80 @@
+# 开发功能任务：默认工作计划功能（Plan de travail par défaut）
+
+## 📌 功能概述
+
+为用户提供一个“每日可自动生成并编辑的工作/学习任务清单”系统，结合 AI 推荐与用户自定义模版，增强语言学习与项目执行的节奏感与计划性。
+
+---
+
+## ✅ 主要目标
+
+- 在用户登录系统时自动生成一份当天的工作/学习计划  
+- 支持手工配置模版与任务内容  
+- 可插入到不同页面（首页、数字人空间、写作面板等）  
+- 与系统其他功能（写作评分、日志记录、学习行为）关联更新状态  
+
+---
+
+## 🧩 功能组成
+
+### 1. 用户设置（Settings）
+
+- [x] 启用每日默认计划（开关）  
+- [x] 自动生成时间（如早上 8 点）  
+- [x] 插入位置选择（首页 / 日志页 / AI空间）  
+- [x] 模版管理（添加/启用/排序）  
+
+### 2. 模版系统（Templates）
+
+每个任务模版结构：
+
+```ts
+type DefaultTaskTemplate = {
+  id: string
+  title: string
+  category: "language" | "tech" | "custom"
+  content: string  // Markdown + 插值
+  enabled: boolean
+}
+例如
+# {{ date }}｜工作计划
+
+## ✅ 1. 技术任务
+- [ ] 完成 OpenAI 接口调用（状态：{{ openai_status }}）
+- [ ] 数据库 Schema 调整（字段：{{ db_fields }}）
+
+## ✍️ 2. 法语学习任务
+- [ ] 写作训练：{{ writing_topic }}
+- [ ] 语法复习重点：{{ grammar_focus }}
+
+## ☁️ 3. 反思与记录
+- [ ] 昨天任务完成情况总结
+- [ ] 今日投入时间目标：{{ estimated_hours }} 小时
+
+⸻
+
+⚙️ 技术实现建议
+	•	前端：React / ShadCN 组件（设置页 + 插入面板）
+	•	插值渲染：结合 dayjs + AI 语境填充（如 GPT suggestion）
+	•	存储：UserPlanSetting 表 + Template JSON 字段（Prisma）
+	•	触发：Next.js 中间件（首次登录检测） + Cron Job（可选）
+
+阶段
+内容
+时间预估
+Phase 1
+用户设置 UI + 模版选择器
+1–2 天
+Phase 2
+插值模版解析 + Markdown 渲染
+1 天
+Phase 3
+首次访问自动注入 + 插入位置配置
+1 天
+Phase 4
+与写作、日志等系统打通更新状态
+1–2 天
+Phase 5
+AI 动态推荐模版 + 计划总结
+待定
+

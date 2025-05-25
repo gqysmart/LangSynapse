@@ -377,3 +377,14 @@
     content: counter(line);
   }
 }
+
+/* paper line background*/
+.editor-paper-lines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 34px,
+    #e5e7eb 34px,
+    #e5e7eb 36px
+  );
+}

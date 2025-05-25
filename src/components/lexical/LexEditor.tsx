@@ -66,7 +66,8 @@ const LexicalEditor = forwardRef(({className}: {className: string}, ref) => {
               <ContentEditable
                 className={clsx(
                   "h-full min-h-24 p-2 outline-none",
-                  lineNumberClass
+                  lineNumberClass,
+                  "editor-paper-lines"
                 )}
               />
             }

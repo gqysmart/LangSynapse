@@ -67,7 +67,8 @@ const LexicalEditor = forwardRef(({className}: {className: string}, ref) => {
                 className={clsx(
                   "h-full min-h-24 p-2 outline-none",
                   lineNumberClass,
-                  "editor-paper-lines"
+                  "editor-paper-lines",
+                  "overflow-y-auto"
                 )}
               />
             }

@@ -7,9 +7,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-gray-800 text-white">
       <div className="max-w-2xl mx-auto  p-4  flex items-center justify-between">
         <Link href="/">
-          <div className={clsx("font-orbitron", "text-3xl")}>
-            🧠 YumiLanguia
-          </div>
+          <div className={clsx("font-orbitron", "text-3xl")}>LangSynapse</div>
         </Link>
         <div>menu</div>
         <div>Langue</div>

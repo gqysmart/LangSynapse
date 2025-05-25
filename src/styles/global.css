@@ -387,4 +387,6 @@
     #e5e7eb 34px,
     #e5e7eb 36px
   );
+  background-repeat: repeat-y;
+  background-size: 100% 36px;
 }

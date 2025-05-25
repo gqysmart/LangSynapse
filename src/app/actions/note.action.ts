@@ -8,6 +8,8 @@ import {
   // MessageContentComplex,
 } from "@langchain/core/messages"
 
+import {PrismaClient} from "@/generated/prisma"
+
 export async function voiceAction(formData: FormData) {
   const text = formData.get("text")
   console.log("[语音输入] 收到：", text)
@@ -38,6 +40,7 @@ export async function handleNoteAction(
 ): Promise<JournalState> {
   const noteContent = formData.get("noteContent")?.toString() || ""
   // const toolSelected = formData.get("toolSelected")?.toString() || ""
+  await createNote(noteContent)
 
   //根据用户不同给出不同的systemMessage
   const systemMsg = new SystemMessage(
@@ -80,12 +83,23 @@ export async function handleNoteAction(
       .join("\n")
   }
 
-  const openAIModel = await getModelWithOpenAI()
-  const res = await openAIModel.invoke([
-    systemMsg,
-    new HumanMessage(noteContent),
-  ])
-  const content = extractText(res.content)
-  console.log(content)
-  return {result: content}
+  // const openAIModel = await getModelWithOpenAI()
+  // const res = await openAIModel.invoke([
+  //   systemMsg,
+  //   new HumanMessage(noteContent),
+  // ])
+  // const content = extractText(res.content)
+  // return {result: content}
+  return {result: "OK"}
+}
+
+// save the note to the server
+const prisma = new PrismaClient()
+export async function createNote(content: string) {
+  await prisma.note.create({
+    data: {
+      content: content,
+      user: 10000,
+    },
+  })
 }

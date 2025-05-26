@@ -1,0 +1,162 @@
+# 📣 LangSynapse 功能模块文档：短文读诵分析（Read-Aloud Evaluation）
+
+## 🧭 功能目标
+
+本模块用于分析用户对短文朗读的语音表现，通过 Whisper 转录与 GPT 分析结合，自动输出用户发音的综合评分、错误分类和个性化反馈建议。该模块旨在提升用户的听说表达能力，特别是在发音准确性、语调自然性、语速节奏、语法复现等方面。
+
+---
+
+## 🎯 适用场景
+
+- 用户进行发音训练或跟读练习
+- 教师查看朗读评估结果
+- 学习者自查语音问题并获得定向反馈
+
+---
+
+## 🛠️ 核心功能流程
+
+### 1. 输入
+
+| 类型 | 说明 |
+|------|------|
+| 📄 原文 | 一段短文或系统生成的朗读文本 |
+| 🔊 用户语音 | 用户朗读音频（上传或录音） |
+
+---
+
+### 2. 后端处理流程
+
+1. ✅ 使用 **Whisper** 将用户语音转为文字 + 时间戳 + 单词置信度
+2. ✅ GPT 接收原文 + Whisper 转录，判断发音偏差与句法偏误
+3. ✅ GPT 输出结构化分析报告
+
+---
+
+### 3. GPT 输出结构（JSON 格式）
+
+```json
+{
+  "overallScore": 4.1,
+  "fluency": 4.3,
+  "pronunciation": 3.9,
+  "intonation": 4.5,
+  "rate": "正常",
+  "issues": [
+    {
+      "word": "continued",
+      "userPronounced": "continue",
+      "type": "tense_error",
+      "comment": "动词时态错误，未使用过去式"
+    },
+    {
+      "word": "midnight",
+      "type": "pronunciation",
+      "comment": "结尾音 't' 未清晰发出"
+    }
+  ],
+  "suggestions": [
+    "注意过去式的发音，例如 continued, worked",
+    "结尾的爆破音要完整，例如 midnight, start"
+  ]
+}
+数据结构建议
+📘 数据表：UserPronunciationTask (朗读任务记录)
+prisma
+复制
+编辑
+model UserPronunciationTask {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  sourceText  String
+  transcript  String
+  audioUrl    String
+  overallScore Float
+  fluency     Float
+  pronunciation Float
+  intonation  Float
+  createdAt   DateTime @default(now())
+}
+💻 前端功能组件
+1. <ReadAloudPanel />
+显示朗读文本
+
+支持文本播放（TTS）
+
+提供录音/上传语音入口
+
+2. <SpeechEvaluationResult />
+显示评分雷达图或条形图
+
+结构化显示错误词及类型
+
+显示 GPT 反馈建议
+
+3. <ReadAgainSuggestion />
+列出推荐重读句子或重点词汇
+
+自动播放标准发音
+
+提供跟读功能（可选录音对比）
+
+🔌 技术集成建议
+模块	技术
+转录识别	OpenAI Whisper (local or API)
+反馈生成	GPT-4 / GPT-4o
+前端音频录制	WebRTC / HTML5 Audio
+发音评分可视化	Chart.js / Recharts 雷达图组件
+音频播放	Audio() 或 Howler.js
+
+✅ 模块优势
+📈 真实语言输出能力评估
+
+🧠 不仅能识别语音，还能解释“为什么错”
+
+🤖 GPT 可定制输出反馈风格、复杂度
+
+🧩 可与“听说读写”技能体系无缝集成
+
+📌 后续可扩展功能
+功能	说明
+自动任务生成	GPT 根据用户能力推荐朗读短文
+语音比对可视化	显示用户 vs 标准音的波形图或单词对比
+多语言支持	法语、英语、西班牙语切换朗读模式
+发音挑战游戏化	积分、闯关、词卡跟读等形式增强互动
+
+✅ 示例用法
+ts
+复制
+编辑
+<ReadAloudPanel text="Although I was tired, I continued working..." lang="en-US" />
+ts
+复制
+编辑
+const result = await evaluatePronunciation({
+  userAudioUrl,
+  referenceText: "Although I was tired, I continued working..."
+});
+🧠 Prompt 样本（用于 GPT 分析）
+css
+复制
+编辑
+你是一个语言学习发音教练。现在请根据以下信息，分析用户的发音表现：
+
+原文：Although I was tired, I continued working until midnight.  
+用户实际朗读转写：Although I was tired, I continue working until midnight.
+
+请输出：
+1. 综合得分（0–5）
+2. 拼读错误与语法偏差
+3. 语速 / 节奏 / 重音 / 语调评估
+4. 发音练习建议
+以 JSON 格式返回。
+✅ 当前任务状态
+ 功能结构设计
+
+ Whisper 转录对接
+
+ GPT 分析调用封装
+
+ 前端组件初步开发
+
+ 可视化反馈集成

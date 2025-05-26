@@ -21,3 +21,213 @@ model Note {
   content   String
   createdAt DateTime @default(now())
 }
+
+//语意表达三级分类
+model PrimaryIntent {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String
+  createdAt   DateTime @default(now())
+  secondaries SecondaryIntent[]
+}
+
+model SecondaryIntent {
+  id           Int               @id @default(autoincrement())
+  name         String
+  description  String
+  createdAt    DateTime @default(now())
+  primary      PrimaryIntent     @relation(fields: [primaryId], references: [id])
+  primaryId    Int
+  tertiaries   TertiaryIntent[]
+}
+
+model TertiaryIntent {
+  id           Int               @id @default(autoincrement())
+  name         String
+  description  String
+  createdAt    DateTime @default(now())
+  secondary    SecondaryIntent   @relation(fields: [secondaryId], references: [id])
+  secondaryId  Int
+  expressions  String[]
+}
+/*
+已存在的语义意图结构如下：
+
+1. 表达行为意图  
+  1.1 请求帮助：请求他人协助完成任务  
+    1.1.1 表达紧急求助：如“Help! I need a doctor.”  
+    1.1.2 表达非紧急协助：如“Could you help me with this form?”
+
+  1.2 表达否定：表达拒绝或不同意  
+    1.2.1 委婉拒绝  
+    1.2.2 直接否定
+
+...
+
+请根据这个结构判断以下表达是否能归入其中一个路径。
+如果不能，请新增一个完整的三级结构并给出 name + 描述。
+
+*/
+/*
+ “意图来源追踪表” —— 记录哪些词/短语/句子促成了某个语义意图分类的创建或扩展。
+
+这样你可以：
+
+分析哪些表达触发了新的分类
+
+审核 GPT 新增意图是否合理
+
+支持“语义地图演化溯源”（非常适合做 AI 训练数据或教学设计）
+*/
+/*
+model IntentOriginEntry {
+  id           Int        @id @default(autoincrement())
+  expression   String     // 触发分类的表达，如 "empathize"
+  type         String     // "word" | "phrase" | "sentence"
+  createdAt    DateTime   @default(now())
+
+  primaryId    Int?       @map("primary_intent_id")
+  secondaryId  Int?       @map("secondary_intent_id")
+  tertiaryId   Int?       @map("tertiary_intent_id")
+
+  primary      PrimaryIntent?   @relation(fields: [primaryId], references: [id])
+  secondary    SecondaryIntent? @relation(fields: [secondaryId], references: [id])
+  tertiary     TertiaryIntent?  @relation(fields: [tertiaryId], references: [id])
+
+  notes        String?    // 可选，记录是否由 GPT 自动创建、人工修订等
+
+  @@map("intent_origin_entries")
+}*/
+//用户语言能力模型
+//语意表达能力
+/*
+model UserSemanticSkill {
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  tertiaryId   Int       // 关联你的第三级语义意图
+  score        Float     // 熟练度：0~5
+  usageCount   Int       // 用户表达过几次该意图
+  successCount Int       // GPT 判断成功表达的次数
+  lastUsedAt   DateTime?
+  updatedAt    DateTime  @updatedAt
+
+  tertiary     TertiaryIntent @relation(fields: [tertiaryId], references: [id])
+
+  @@unique([userId, tertiaryId])
+}
+*/
+/*
+semantic = weighted_average([
+  {
+    intent: "请求帮助",
+    usageCount: 12,
+    accuracy: 0.83, // GPT判断意图是否表达正确
+    fluency: 0.75
+  },
+  ...
+])*/
+
+//用户语法能力
+model UserGrammarSkill {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  feature     String   // 语法点标识：tense, gender, article, plural, etc.
+  subFeature  String?  // 可选，如 "past" / "present" / "future"
+  score       Float    // 0~5 熟练度
+  usageCount  Int
+  successCount Int
+  lastSeenAt  DateTime?
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, feature, subFeature])
+}
+/*model UserWordSkill {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  wordId    Int
+  score     Float   // 0~5，表示熟悉度
+  lastSeen  DateTime?
+  seenCount Int     // 出现/复习次数
+  errorCount Int    // 拼写/语义/语法错误次数
+
+  word      Word    @relation(fields: [wordId], references: [id])
+
+  @@unique([userId, wordId])
+}
+*/
+model UserPronunciationSkill {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  overall     Float    // 综合评分 0~5
+  phoneme     Float    // 音素准确度评分
+  stress      Float    // 重音
+  intonation  Float    // 语调自然度
+  rhythm      Float    // 节奏
+  fluency     Float    // 语音流利度（可与 speaking 能力共用）
+  taskCount   Int
+  updatedAt   DateTime @updatedAt
+}
+
+model UserSyntaxSkill {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  level     String  // "simple", "compound", "complex", "nested"
+  score     Float   // 熟练度 0~5
+  usageCount Int
+  successCount Int
+  lastUsedAt DateTime?
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, level])
+}
+//综合 听说读写能力，dictée能力
+/*
+Dictée 能力评分 = 
+  0.4 * spellingScore +
+  0.3 * grammarScore +
+  0.3 * syntaxScore
+*/
+model UserWritingSkill {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  avgScore  Float   // 0~5 综合写作能力评分
+  lastScore Float?  // 最近一次任务评分
+  taskCount Int
+  updatedAt DateTime @updatedAt
+}
+model UserReadingSkill {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  avgScore  Float   // 0~5 综合写作能力评分
+  lastScore Float?  // 最近一次任务评分
+  taskCount Int
+  updatedAt DateTime @updatedAt
+}
+model UserListeningSkill {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  avgScore  Float   // 0~5 综合写作能力评分
+  lastScore Float?  // 最近一次任务评分
+  taskCount Int
+  updatedAt DateTime @updatedAt
+}
+model UserSpeakingSkill {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  avgScore  Float   // 0~5 综合写作能力评分
+  lastScore Float?  // 最近一次任务评分
+  taskCount Int
+  updatedAt DateTime @updatedAt
+}
+model UserDictationSkill {
+  id         Int     @id @default(autoincrement())
+  userId     Int
+  avgScore   Float   // 平均听写准确率（0~1）
+  spellingScore Float
+  grammarScore Float
+  syntaxScore Float
+  taskCount  Int
+  lastScore  Float?
+  lastSeen   DateTime?
+  updatedAt  DateTime @updatedAt
+}

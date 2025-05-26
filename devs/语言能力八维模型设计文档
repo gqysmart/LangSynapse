@@ -1,0 +1,183 @@
+# 🧠 语言能力八维模型设计文档
+
+本模型旨在构建一个结构化、可追踪、可反馈的用户语言认知图谱，支持 GPT 评分与可视化展示，适用于 AI 辅助语言学习系统。
+
+---
+
+## ✅ 顶层结构：听说读写四项技能
+
+| 技能 | 描述 |
+|------|------|
+| 听（Listening） | 理解语音输入（对话、课程、广播） |
+| 说（Speaking） | 口头表达（语义、语调、流利度） |
+| 读（Reading） | 理解书面输入（主旨、推理、细节） |
+| 写（Writing） | 表达书面内容（逻辑、语法、组织） |
+
+---
+
+## ✅ 中间结构：语言能力八维模型
+
+| 维度编号 | 能力名称 | 描述 |
+|----------|----------|------|
+| 1 | Semantic 意图表达能力 | 能否表达如“请求帮助”、“否定”、“描述天气”等功能性意图（由三级意图分类支持） |
+| 2 | Spelling 拼写能力 | 单词拼写是否正确，是否常出错 |
+| 3 | Grammar 语法能力 | 动词变位、性别、人称、时态等掌握程度 |
+| 4 | Vocabulary 词汇掌握度 | 掌握的词量与多样性，是否会用目标语言表达词义 |
+| 5 | Syntax 句式结构能力 | 能否使用复合句、从句、嵌套句等复杂结构 |
+| 6 | Comprehension 理解能力 | 能否理解听/读内容，包括细节、推理、主旨等 |
+| 7 | Fluency 自然度与流畅性 | 语言是否流畅、自然、有逻辑衔接 |
+| 8 | Error Insight 错误模式分析 | 多维度错误来源追踪与聚合，如拼写、语法、语义等错误分类统计 |
+
+---
+
+## ✅ 专项维度结构设计
+
+### ✅ Semantic 语义意图能力
+
+- 结构：三级语义意图树（Primary → Secondary → Tertiary）
+- 存储：`UserSemanticSkill` 表（每类意图 0~5 分）
+- 来源：GPT 自动分类用户输入，归入意图树并更新熟练度
+- 示例分类路径：
+表达行为意图 → 请求帮助 → 表达紧急求助
+
+yaml
+复制
+编辑
+
+---
+
+### ✅ Grammar 语法能力
+
+- 结构：按语法点分类（时态、冠词、性别、语态、数等）
+- 存储：`UserGrammarSkill` 表
+- 错误记录：`UserGrammarError` 表，记录错词、正解、分类
+- GPT 用于识别错误类别与反馈生成
+
+---
+
+### ✅ Spelling 拼写能力
+
+- 存储：`UserSpellingError`（错词频次）、`UserWordSkill`（词汇掌握）
+- 评分：错误率 × 出现次数，推算拼写掌握分
+
+---
+
+### ✅ Syntax 句式能力
+
+- 四类等级：simple / compound / complex / nested
+- GPT 提取句子结构 → 分类 → 打分（0~5）
+- 存储：`UserSyntaxSkill` 表，按句式等级分记录熟练度
+
+---
+
+### ✅ Vocabulary 词汇能力
+
+- 基础词表：`Word` 表（含词性、定义、例句、语义标签）
+- 用户掌握度：`UserWordSkill` 表，记录 score、出现频率、错误数
+- 支持：
+- 词义 → 意图映射
+- 词形变化（未来可建 `WordForm`）
+
+---
+
+### ✅ Comprehension 理解能力
+
+- 任务：阅读理解、听力理解、逻辑推理题等
+- GPT 判断用户作答质量（如主旨、细节、推理）
+- 存储：`UserReadingSkill`, `UserListeningSkill`（可合并为 Comprehension）
+
+---
+
+### ✅ Fluency 流利度
+
+- 评分参考：GPT 语篇自然度评分（0~5）
+- GPT 评估：
+- 表达是否顺畅、连接词是否自然
+- 语速是否适中、表达是否有停顿
+- 可覆盖 Speaking / Writing
+
+---
+
+### ✅ Error Insight 错误模式能力
+
+- 错误记录：`UserErrorLog` 表（记录原始输入 + GPT 标注错误）
+- 结构：拼写 / 语法 / 语义 / 词汇 / 结构等分类错误
+- 用于：
+- 个性化练习推荐
+- 弱点趋势分析
+
+---
+
+## ✅ 专项任务支持
+
+### ✅ 发音能力（Pronunciation Skill）
+
+- 技术：语音识别（Whisper）+ GPT 分析反馈
+- 子维度：音素准确性 / 重音 / 节奏 / 语调 / 流利度
+- 存储：`UserPronunciationSkill`
+- 可结合用户录音 + GPT 评语反馈 + 跟读练习推荐
+
+---
+
+### ✅ Dictée（听写能力）
+
+- 技能综合：听力 + 拼写 + 语法 + 记忆
+- 工作流：语音输入 → 用户写作 → GPT 评分（token 比对 + 错误分类）
+- 存储：`UserDictationSkill`
+- 可评分维度：
+- 拼写
+- 语法
+- 语序/句法
+- 可反馈：“你常在过去式中拼错动词”、“容易错写 leur/leurs”
+
+---
+
+## ✅ 能力聚合与可视化建议
+
+- 📊 四大技能（听说读写） = 多个底层维度加权融合
+- 🧠 每个维度 0–5 分（或百分比），用于雷达图、折线图等
+- 🎯 推荐逻辑：聚焦低分维度 → 个性化推荐练习 → 追踪进步
+
+---
+
+## ✅ 数据设计建议（部分核心表）
+
+```prisma
+model UserSemanticSkill
+model UserGrammarSkill
+model UserSpellingError
+model UserWordSkill
+model UserSyntaxSkill
+model UserReadingSkill
+model UserWritingSkill
+model UserPronunciationSkill
+model UserDictationSkill
+model UserErrorLog
+✅ 可拓展接口
+/api/evaluate/writing
+
+/api/evaluate/dictee
+
+/api/classify/intent
+
+/api/score/grammar
+
+/api/record/error
+
+✅ 接入建议
+GPT 用于：打分、分类、反馈生成、意图识别、语法分析
+
+Whisper：发音评分、听写评分
+
+Prisma：管理用户多维度能力数据
+
+前端：Next.js + Chart.js 实现能力图谱与反馈 UI
+
+✅ 下一步推荐
+ 生成完整 Prisma schema 文件（已设计维度）
+
+ 构建 GPT Prompt 集合（按维度拆分）
+
+ 实现 GPT + Whisper 联动接口（发音 / 听写）
+
+ 构建能力分析面板原型（前端雷达图 + 任务分析页）

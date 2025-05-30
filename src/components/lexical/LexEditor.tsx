@@ -8,29 +8,45 @@ import {HistoryPlugin} from "@lexical/react/LexicalHistoryPlugin"
 import {OnChangePlugin} from "@lexical/react/LexicalOnChangePlugin"
 import {LexicalErrorBoundary} from "@lexical/react/LexicalErrorBoundary"
 import {useLexicalComposerContext} from "@lexical/react/LexicalComposerContext"
-import {$getRoot, $createParagraphNode, $createTextNode} from "lexical"
+import {$getRoot} from "lexical"
 import {EditorState} from "lexical"
 import {forwardRef, useImperativeHandle} from "react"
 import clsx from "clsx"
 import {useLineNumbers} from "@/hooks/useLineNumbers"
-
+import {
+  ErrorNode,
+  applyMultiNodeCorrections,
+  CorrectionSuggestion,
+} from "./ErrorNode"
+import {isValidJSON} from "@/lib/utils"
 const editorConfig = {
   namespace: "LangSynapseEditor",
   theme: {},
   onError: (error: Error) => console.error(error),
+  nodes: [ErrorNode],
 }
 
 const EditorController = forwardRef((_, ref) => {
   const [editor] = useLexicalComposerContext()
 
+  function _updateEditorWithErrors(rst: string) {
+    if (isValidJSON(rst)) {
+      const parsed = JSON.parse(rst)
+      const suggestions = (parsed.errors ?? []) as CorrectionSuggestion[]
+      applyMultiNodeCorrections(editor, suggestions)
+    }
+  }
+
   useImperativeHandle(ref, () => ({
-    updateEditor: (newText: string) => {
-      editor.update(() => {
-        const root = $getRoot()
-        root.clear()
-        root.append($createParagraphNode().append($createTextNode(newText)))
-      })
-    },
+    // updateEditor: (rst: string) => {
+    //   //const data = JSON.parse(rst) as {errors: CorrectionSuggestion[]}
+    //   //  const errors: CorrectionSuggestion[] = data.errors
+    //   editor.update(() => {
+    //     // const root = $getRoot()
+    //     // root.clear()
+    //     // root.append($createParagraphNode().append($createTextNode(errors)))
+    //   })
+    // },
     getContent: () => {
       let result = ""
       editor.getEditorState().read(() => {
@@ -39,6 +55,17 @@ const EditorController = forwardRef((_, ref) => {
       return result
     },
     clear: () => {},
+    updateEditorWithMode(rst: string, mode: string) {
+      switch (mode) {
+        case "SHOWERRORS": {
+          _updateEditorWithErrors(rst)
+          break
+        }
+        // 你可以添加更多 case...
+        default:
+          break
+      }
+    },
   }))
 
   return null // 这个组件不需要渲染任何内容，只操作编辑器

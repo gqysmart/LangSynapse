@@ -14,7 +14,7 @@ export type JournalFormHandle = {
 }
 
 type LexEditorRef = {
-  updateEditor: (text: string) => void
+  updateEditorWithMode: (text: string, mode: string) => void
   getContent: () => string
   clear: () => void
 }
@@ -31,8 +31,8 @@ function LangNote({className}: {className: string}) {
     initialState
   )
   useEffect(() => {
-    //修改lexEditor
-    lexRef.current?.updateEditor(textProcessed.result)
+    //AI 返回后修改lexEditor
+    lexRef.current?.updateEditorWithMode(textProcessed.result, "SHOWERRORS")
   }, [textProcessed])
 
   const formRef = useRef<HTMLFormElement>(null)

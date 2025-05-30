@@ -1,0 +1,29 @@
+# 🛠️ Plan de développement du week-end (LangSynapse)
+
+## 1. Authentification utilisateur
+- [ ] Implémenter l'inscription, la connexion et la déconnexion
+- [ ] Intégrer `NextAuth` ou une autre solution d'authentification
+- [ ] Créer le modèle `User` dans la base de données (Prisma)
+- [ ] Gérer les accès selon l'état de connexion (pages privées)
+
+## 2. Support multilingue
+- [ ] Intégrer `next-intl`, `react-intl` ou une autre solution i18n
+- [ ] Permettre la bascule entre l'anglais et le français
+- [ ] Extraire toutes les chaînes de caractères statiques vers des fichiers de traduction
+
+## 3. Ajustements d'interface
+- [ ] Optimiser la mise en page de l'éditeur (espacement, couleur, lisibilité)
+- [ ] Adapter le design aux petits écrans (responsive)
+- [ ] Gérer les états de chargement et d'erreur
+- [ ] Unifier les styles de boutons, polices et composants (via TailwindCSS)
+
+## 4. Système sémantique à trois niveaux (SIP: Semantic Intent Path)
+- [ ] Finaliser la structure des intentions sémantiques (niveau 1/2/3)
+- [ ] Concevoir le modèle `IntentTree` dans la base de données
+- [ ] Tester la classification automatique de texte via GPT
+- [ ] Lier les intentions à la progression de l'utilisateur
+- [ ] Créer des exemples de phrases pour chaque intention de niveau 3
+
+---
+
+**🎯 Bonne chance ! Tu construis quelque chose de puissant.**
